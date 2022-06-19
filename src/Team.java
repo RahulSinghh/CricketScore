@@ -66,7 +66,6 @@ public class Team {
 			String playerName = sc.next();
 			players[playerIndex] = new Player(playerName);
 		}
-		//comment
 	}
 
 	public int getNoPlayers() {
