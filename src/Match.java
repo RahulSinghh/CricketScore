@@ -43,7 +43,20 @@ public class Match {
 		displayWinner();
 	}
 	
+	
+	/**
+	 * 
+	 * @param team
+	 */
 	void startBatting(Team team) {
+		/*
+		 * loop till either all overs are completed or all wickets are down
+		 * at end of each over 
+		 *  a) displayScore
+		 *  b) changeStrike
+		 *  c) update overNumber
+		 * 
+		 */
 		int noOvers = this.noOvers;
 		this.setPlayerOnStrike(team.getNextBatsMan());
 		this.setPlayerOnNonStrike(team.getNextBatsMan());
@@ -58,12 +71,38 @@ public class Match {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param team
+	 * @param overNumber
+	 * @return boolean (if the complete Over was completed or all wickets were down before over completion)
+	 */
 	boolean playOver(Team team, int overNumber) {
+		
+		/*
+		 * This method is responsible for processing each ball in a Over
+		 * if ball was wide then simply add 1 run to team score
+		 * if ball took wicket then 
+		 * 	a) increase number of balls by 1,
+		 * 	b) mark strike batsMan as out
+		 *  c) get Next batsman from the team
+		 *  d) if nextBatsMan == null stop the game
+		 *  e) if nextBatsMan 1= null set that batsMan on strike
+		 *  
+		 * if batsMan scored runs on the ball
+		 * 	a) increase ball by one
+		 *  b) increase strike batsman score by one
+		 *  
+		 * At last update team score by total runs in over
+		 * and update number of balls played by team.
+		 */
+		
+		
 		System.out.println();
 		System.out.println("Over "+overNumber);
 		
 		int numberOfBalls = 0;
-		int totalScore = 0;
+		int totalScoreInOver = 0;
 		
 		while(numberOfBalls < GlobalConstants.NO_BALL_IN_OVER) {
 			
@@ -92,11 +131,11 @@ public class Match {
 				}
 			}
 			
-			totalScore += runs;
+			totalScoreInOver += runs;
 		}
 		
 		team.setBallsPlayed(numberOfBalls);
-		team.setTotalScore(team.getTotalScore() + totalScore);
+		team.setTotalScore(team.getTotalScore() + totalScoreInOver);
 		
 		if(numberOfBalls < GlobalConstants.NO_BALL_IN_OVER) {
 			return false;
@@ -109,6 +148,9 @@ public class Match {
 	}
 	
 	void changeStrike() {
+		/*
+		 * Swap the position of Strike and non Strike batsman
+		 */
 		Player playerOnStrike = getPlayerOnStrike();
 		Player playerOnNonStrike = getPlayerOnNonStrike();
 		

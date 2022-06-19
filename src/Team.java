@@ -76,7 +76,17 @@ public class Team {
 		this.noPlayers = noPlayers;
 	}
 	
+	
+	
 	public Player getNextBatsMan() {
+		
+		/*
+		 * getNextBatsMan from sequential traversal
+		 * criteria for deciding nextBatsMan is 
+		 * 	a) Player should not be already on field
+		 *  b) Player should not be Out.
+		 */
+		
 		for(int playerIndex = 0; playerIndex < this.noPlayers; playerIndex++) {
 			if(!players[playerIndex].isBatting() && !players[playerIndex].isOut()) {
 				Player nextBatsMan = players[playerIndex];
